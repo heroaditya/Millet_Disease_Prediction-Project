@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millet Disease Detection</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f7f2;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header section */
+        .header {
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .header::after {
+            content: "Millet Disease Detection";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to right, rgba(76, 175, 80, 0.9), rgba(139, 195, 74, 0.9));
+            color: white;
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Upload section */
+        .upload-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            border-top: 5px solid #8BC34A;
+        }
+
+        .upload-section h2 {
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .upload-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .upload-section input[type="file"] {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border: 2px dashed #8BC34A;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section input[type="file"]:hover {
+            border-color: #4CAF50;
+            background-color: #f0f8e6;
+        }
+
+        .upload-section button {
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-section button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Bottom navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #777;
+            transition: all 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 8px;
+        }
+
+        .nav-item img {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: #4CAF50;
+        }
+
+        .nav-item.active img {
+            opacity: 1;
+        }
+
+        .nav-item:hover {
+            background-color: #f0f8e6;
+            color: #4CAF50;
+        }
+
+        .nav-item:hover img {
+            opacity: 1;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header::after {
+                font-size: 22px;
+                padding: 15px;
+            }
+
+            .upload-section {
+                padding: 30px 20px;
+            }
+
+            .top-image {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header::after {
+                font-size: 18px;
+                padding: 10px;
+            }
+
+            .upload-section button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 🔹 Top Section: Millet Image -->
+        <div class="header">
+            <img src="{{ url_for('static', filename='Images/millet-header.jpg') }}" alt="Millets" class="top-image">
+        </div>
+
+        <!-- 🔹 Image Upload for Prediction -->
+        <div class="upload-section">
+            <h2>Upload an Image for Prediction</h2>
+            <form action="/predict" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <button type="submit">Predict</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 🔹 Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="/" class="nav-item active">
+            <img src="{{ url_for('static', filename='Images/home.png') }}" alt="Home">
+            <span>Home</span>
+        </a>
+        <!-- 🔹 Camera Section (Center) -->
+        <a href="/camera" class="nav-item camera-icon">
+            <img src="{{ url_for('static', filename='Images/camera.png') }}" alt="Camera">
+            <span>Camera</span>
+        </a>
+        <a href="/chatbot" class="nav-item">
+            <img src="{{ url_for('static', filename='Images/chatbot.png') }}" alt="Chatbot">
+            <span>Chatbot</span>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millet Disease Detection Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .result-box {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: block;
+            font-size: 18px;
+            margin: 20px auto;
+        }
+
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .solution-btn, .go-back-btn {
+            display: block;
+            width: 90%;
+            max-width: 300px;
+            margin: 10px auto;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .solution-btn:hover, .go-back-btn:hover {
+            background: #45a049;
+        }
+
+        .go-back-btn {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Prediction Result</h2>
+    <img src="{{ image_url }}" alt="Uploaded Image" class="uploaded-image" />
+
+    <div class="result-box">
+        <p class="status"><strong>Status:</strong> {% if "Healthy" in disease_name %}Healthy ✅{% else %}Unhealthy ❌{% endif %}</p>
+        <p><strong>Disease Name:</strong> {{ disease_name }}</p>
+        
+    </div>
+
+    <button class="solution-btn">
+        <p><strong>Treatability:</strong> {{ status }}</p>
+        {{ solution }}</button>
+    <a href="/" class="go-back-btn">Go Back</a>
+</div>
+
+</body>
+</html>

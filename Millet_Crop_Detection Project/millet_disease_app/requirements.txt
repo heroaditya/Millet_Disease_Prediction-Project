@@ -4,3 +4,4 @@ tensorflow
 Pillow
 Werkzeug
 pillow-avif-plugin
+gunicorn
